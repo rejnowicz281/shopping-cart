@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter, NavLink, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, NavLink, Navigate, Route, Routes } from "react-router-dom";
 import products from "../products";
 import Checkout from "./Checkout";
 import Homepage from "./Homepage";
@@ -47,39 +47,36 @@ export default function App() {
     return (
         <BrowserRouter>
             <nav>
-                <ul>
-                    <li>
-                        <NavLink to="/shopping-cart/homepage">Home</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/shopping-cart/products">Products</NavLink>
-                    </li>
-                    <li>
-                        <NavLink to="/shopping-cart/checkout">
-                            Checkout {cart.length != 0 && `(${cart.length})`}
-                        </NavLink>
-                    </li>
-                </ul>
+                <div className="logo">
+                    <Link to="/shopping-cart/homepage">The Zone</Link>
+                </div>
+                <div className="nav-links">
+                    <NavLink to="/shopping-cart/homepage">Home</NavLink>
+                    <NavLink to="/shopping-cart/products">Products</NavLink>
+                    <NavLink to="/shopping-cart/checkout">Checkout {cart.length != 0 && `(${cart.length})`}</NavLink>
+                </div>
             </nav>
-            <Routes>
-                <Route path="/*" element={<Navigate to="/shopping-cart/homepage" />} />
-                <Route path="/shopping-cart/homepage" element={<Homepage />} />
-                <Route
-                    path="/shopping-cart/products"
-                    element={<Products products={products} addToCart={addToCart} />}
-                />
-                <Route
-                    path="/shopping-cart/checkout"
-                    element={
-                        <Checkout
-                            cart={cart}
-                            updateCartProductQuantity={updateCartProductQuantity}
-                            handlePayment={handlePayment}
-                            discardProduct={discardProduct}
-                        />
-                    }
-                />
-            </Routes>
+            <main>
+                <Routes>
+                    <Route path="/*" element={<Navigate to="/shopping-cart/homepage" />} />
+                    <Route path="/shopping-cart/homepage" element={<Homepage />} />
+                    <Route
+                        path="/shopping-cart/products"
+                        element={<Products products={products} addToCart={addToCart} />}
+                    />
+                    <Route
+                        path="/shopping-cart/checkout"
+                        element={
+                            <Checkout
+                                cart={cart}
+                                updateCartProductQuantity={updateCartProductQuantity}
+                                handlePayment={handlePayment}
+                                discardProduct={discardProduct}
+                            />
+                        }
+                    />
+                </Routes>
+            </main>
         </BrowserRouter>
     );
 }

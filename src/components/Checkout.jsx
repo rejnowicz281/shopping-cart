@@ -12,12 +12,19 @@ export default function Checkout({ cart, updateCartProductQuantity, discardProdu
 
     return (
         <div className="Checkout">
-            <h1>This is the checkout page.</h1>
+            <h1 className="text-center">Let's Bargain.</h1>
             {cart.length === 0 ? (
-                <>Your cart is empty.</>
+                <div className="text-center">When you have something in your cart, that is.</div>
             ) : (
-                <>
-                    Your cart has {cart.length} items. Total: ${cartTotal()}
+                <div>
+                    <div className="text-center">
+                        <p>
+                            Your cart has {cart.length} items. Total: ${cartTotal()}
+                        </p>
+                        <button className="payment-button" onClick={handlePayment}>
+                            Proceed with payment
+                        </button>
+                    </div>
                     {cart.map((cartProduct) => (
                         <CartProduct
                             key={cartProduct.id}
@@ -26,9 +33,7 @@ export default function Checkout({ cart, updateCartProductQuantity, discardProdu
                             discardProduct={discardProduct}
                         />
                     ))}
-                    <hr />
-                    <button onClick={handlePayment}>Proceed with payment</button>
-                </>
+                </div>
             )}
         </div>
     );
@@ -43,6 +48,7 @@ Checkout.propTypes = {
             description: PropTypes.string.isRequired,
             price: PropTypes.number.isRequired,
             quantity: PropTypes.number.isRequired,
+            image: PropTypes.string.isRequired,
         })
     ).isRequired,
     handlePayment: PropTypes.func.isRequired,

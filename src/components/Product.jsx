@@ -7,10 +7,17 @@ export default function Product({ product, addToCart }) {
 
     return (
         <div className="Product">
-            <h2>{product.name}</h2>
-            <p>{product.description}</p>
-            <QuantityUpdater quantity={quantity} onChange={(e) => setQuantity(parseInt(e.target.value))} />
-            <button onClick={() => addToCart(product, quantity)}>Add to cart (${product.price * quantity})</button>
+            <div className="product-image-container">
+                <img className="product-image" src={product.image} alt={product.name} />
+            </div>
+            <div className="product-main">
+                <h2 className="product-name">{product.name}</h2>
+                <p className="product-description">{product.description}</p>
+                <QuantityUpdater quantity={quantity} updateQuantity={setQuantity} />
+                <button className="add-to-cart-button" onClick={() => addToCart(product, quantity)}>
+                    Add to cart (${product.price * quantity})
+                </button>
+            </div>
         </div>
     );
 }
@@ -22,5 +29,6 @@ Product.propTypes = {
         name: PropTypes.string.isRequired,
         description: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,
+        image: PropTypes.string.isRequired,
     }).isRequired,
 };

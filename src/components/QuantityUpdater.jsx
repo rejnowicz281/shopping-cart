@@ -1,25 +1,28 @@
 import PropTypes from "prop-types";
 
-export default function QuantityUpdater({ quantity, onChange }) {
-    function handleChange(e) {
-        if (e.target.value >= 1) {
-            onChange(e);
+export default function QuantityUpdater({ quantity, updateQuantity }) {
+    function handleUpdate(value) {
+        if (value >= 1) {
+            updateQuantity(parseInt(value));
+        } else {
+            updateQuantity(1);
         }
     }
 
     return (
-        <input
-            className="QuantityUpdater"
-            type="number"
-            id="quantity"
-            min="1"
-            value={quantity}
-            onChange={handleChange}
-        />
+        <div className="QuantityUpdater">
+            <button className="quantity-button" onClick={() => handleUpdate(quantity - 1)}>
+                -
+            </button>
+            <input type="number" id="quantity" value={quantity} onChange={(e) => handleUpdate(e.target.value)} />
+            <button className="quantity-button" onClick={() => handleUpdate(quantity + 1)}>
+                +
+            </button>
+        </div>
     );
 }
 
 QuantityUpdater.propTypes = {
     quantity: PropTypes.number.isRequired,
-    onChange: PropTypes.func.isRequired,
+    updateQuantity: PropTypes.func.isRequired,
 };
