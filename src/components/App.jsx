@@ -35,6 +35,10 @@ export default function App() {
         });
     }
 
+    function discardProduct(id) {
+        setCart(cart.filter((cartProduct) => cartProduct.id != id));
+    }
+
     function handlePayment() {
         setCart([]);
         alert("Payment successful.");
@@ -71,6 +75,7 @@ export default function App() {
                             cart={cart}
                             updateCartProductQuantity={updateCartProductQuantity}
                             handlePayment={handlePayment}
+                            discardProduct={discardProduct}
                         />
                     }
                 />

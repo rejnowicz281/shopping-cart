@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import CartProduct from "./CartProduct";
 
-export default function Checkout({ cart, updateCartProductQuantity, handlePayment }) {
+export default function Checkout({ cart, updateCartProductQuantity, discardProduct, handlePayment }) {
     function cartTotal() {
         let total = 0;
         cart.forEach((product) => {
@@ -14,19 +14,21 @@ export default function Checkout({ cart, updateCartProductQuantity, handlePaymen
         <div className="Checkout">
             <h1>This is the checkout page.</h1>
             {cart.length === 0 ? (
-                <p>Your cart is empty.</p>
+                <>Your cart is empty.</>
             ) : (
-                <p>
+                <>
                     Your cart has {cart.length} items. Total: ${cartTotal()}
                     {cart.map((cartProduct) => (
                         <CartProduct
                             key={cartProduct.id}
                             product={cartProduct}
                             updateCartProductQuantity={updateCartProductQuantity}
+                            discardProduct={discardProduct}
                         />
                     ))}
+                    <hr />
                     <button onClick={handlePayment}>Proceed with payment</button>
-                </p>
+                </>
             )}
         </div>
     );
@@ -44,4 +46,5 @@ Checkout.propTypes = {
         })
     ).isRequired,
     handlePayment: PropTypes.func.isRequired,
+    discardProduct: PropTypes.func.isRequired,
 };

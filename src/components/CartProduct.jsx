@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import QuantityUpdater from "./QuantityUpdater";
 
-export default function CartProduct({ product, updateCartProductQuantity }) {
+export default function CartProduct({ product, updateCartProductQuantity, discardProduct }) {
     function updateQuantity(e) {
         updateCartProductQuantity(product.id, parseInt(e.target.value));
     }
@@ -12,6 +12,7 @@ export default function CartProduct({ product, updateCartProductQuantity }) {
             <label htmlFor="quantity">Quantity:</label>
             <QuantityUpdater quantity={product.quantity} onChange={updateQuantity} />
             <p>Price: ${product.price * product.quantity}</p>
+            <button onClick={() => discardProduct(product.id)}>Discard Product</button>
         </div>
     );
 }
@@ -25,4 +26,5 @@ CartProduct.propTypes = {
         price: PropTypes.number.isRequired,
         quantity: PropTypes.number.isRequired,
     }).isRequired,
+    discardProduct: PropTypes.func.isRequired,
 };
